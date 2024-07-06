@@ -35,7 +35,7 @@ In Java 17 on a 64-bit machine with compressed pointers, the memory footprint of
 
 ### Memory Calculation
 
-For a `String` of length \( N \):
+For a `String` of length `N`:
 
 - **String object:**
     - Object header: 12 bytes
@@ -47,15 +47,15 @@ For a `String` of length \( N \):
 
 - **`char[]` array:**
     - Array header: 12 bytes
-    - Characters: \( N \times 2 \) bytes (each `char` is 2 bytes)
-    - **Total for `char[]` array:** \( 12 + (N \times 2) \) bytes
+    - Characters: $\( N \times 2 \)$ bytes (each `char` is 2 bytes)
+    - **Total for `char[]` array:** $\( 12 + (N \times 2) \)$ bytes
 
 ### Total Memory
 
-\[ \text{Total Memory} = 24 + 12 + (N \times 2) = 36 + (N \times 2) \text{ bytes} \]
+$\[ \text{Total Memory} = 24 + 12 + (N \times 2) = 36 + (N \times 2) \text{ bytes} \]$
 
 ### Example
 
 For a `String` of length 10:
 
-\[ \text{Total Memory} = 36 + (10 \times 2) = 36 + 20 = 56 \text{ bytes} \]
+$\[ \text{Total Memory} = 36 + (10 \times 2) = 36 + 20 = 56 \text{ bytes} \]$
