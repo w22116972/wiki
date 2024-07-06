@@ -1,4 +1,4 @@
-# System Design Interview Template
+# Interview Template
 
 ## 1. Understand problem and design scope
 
@@ -54,3 +54,4 @@ Ask
 - caching
 - sharding
 - horizontal scaling
+
