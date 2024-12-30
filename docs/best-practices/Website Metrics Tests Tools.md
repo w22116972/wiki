@@ -6,6 +6,7 @@
 
 ### Lighthouse
 
-1. dev tools
-2. click "more tab" in audit tab then choose "Lighthouse"
-3. generate report
+1. use in-private/incognito tab (make sure no extension is enabled)
+2. dev tools
+3. click "more tab" in audit tab then choose "Lighthouse"
+4. generate report

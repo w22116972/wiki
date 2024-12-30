@@ -7,7 +7,7 @@
 Ask
 - Who are the users?
   - users? other services?
-- How the system will be used?
+- How will the system be used?
   - website? mobile app? API?
 - What are the main features?
 
@@ -35,6 +35,7 @@ Ask
 - Define data models
   - Database models
   - Message data models
+- Define services (components)
 
 ### Draw diagrams
 
@@ -42,6 +43,11 @@ Ask
 - ERD for database models
 
 ## 3. Deep Dive into Components (Detailed Design)
+
+### Discuss trade-offs
+- Different components have different pros and cons
+- Different choices have different costs
+- Point out weaknesses in our design to our interviewer and explain why we haven’t tackled them yet
 
 ### Pick components that you feel are important in designing the system.
 - requests and response for critical paths
@@ -55,3 +61,14 @@ Ask
 - sharding
 - horizontal scaling
 
+
+
+---
+
+What’s the size of the data right now?
+At what rate is the data expected to grow over time?
+How will the data be consumed by other subsystems or end users?
+Is the data read-heavy or write-heavy?
+Do we need strict consistency of data, or will eventual consistency work?
+What’s the durability target of the data?
+What privacy and regulatory requirements do we require for storing or transmitting user data?

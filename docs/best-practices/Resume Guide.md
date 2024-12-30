@@ -3,9 +3,9 @@
 
 - Prepare one master version with many company-specific versions
 - Font size: 10-12
-- Font family: Calibri (most recommend), Arial, Times New Roman, Garamond
+- Font family: Calibri (most recommended), Arial, Times New Roman, Garamond
 - Margins:0.5+, line spacing: 1.07+
-- Date format: Mar 2022, use en dashes (–), not hyphens (-)
+- Date format: Mar 2022, use en dashes ( – ), not hyphens (-)
 
 ## Contact Information
 
@@ -57,11 +57,6 @@
 - Include languages you've used thoroughly and could theoretically interview in
 - Repeat things that you use in your bullet points
 - At most 3 lines with single column format
-
-
----
-
-https://www.overleaf.com/read/hrjrtpgysjpd#28e730
 
 ---
 

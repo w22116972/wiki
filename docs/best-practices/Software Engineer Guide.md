@@ -2,10 +2,10 @@
 
 ## Choice of company
 
-- Prefer which offers career paths above staff engineer
+- Prefer which offers **career paths above staff engineer**
     - e.g. Big Tech > Freelancer, small company, public sector, nonprofit, outsourcing company, academia
-- Prefer top of regional/international market over top of local market
-- Prefer profit center team (directly generate revenue for busniess) over cost center team (operate smoothly)
+- Prefer **top of regional/international market** over top of local market
+- Prefer profit center team (directly generate revenue for business) over cost center team (operate smoothly)
     - By just displaying impact on revenue generation
     - e.g. Ads is Google profit center, infra is Google cost center
     - Cost center team in Big Tech is exceptional (still big impact on revenue)
@@ -13,23 +13,38 @@
 ## Self
 
 - be seen as someone who "Get things done"
+  - when given a task, should have written spec and test plan covering all edge cases
+  - ship more and better than expected
   - plenty of impactful projects
+
+- push code every day
+  - even small changes
+
+
+### Atomic habits
+
 - keep a work log
-  - format: date, project, task, time spent, result
-  - use it to write resume
+  - including code changes, design decisions, meeting notes, code reviews, help others, discussions.
+  - summarize key achievements weekly, monthly, quarterly
+    - for performance review and resume
+- Produce, Organize, Publish
+  - Produce: write code, write docs, write tests
+  - Organize: things that help to GTD e.g. organizing meetings, improving team workflow
+  - Publish: publish your work via 1:1, presenting at organization-wide/company-wide meetings, external events
 
 ## Mindset
 
-If you must wait for a teacher before you can learn something, you aren't hungry enough and will probably NOT find a software job
-Your degree or certification means nothing. It's your disciplined daily practice, on increasingly tougher, practical problems, that gets you jobs.
-Universities are too slow and far behind in technology, compared to what companies actually need.
+If you need to wait for a teacher before learning something, you lack the necessary drive and are unlikely to secure a software job.
 
-You quickly hit questions that no one else (including your teachers or bosses) can answer but you.
-Get used to solving problems alone.
+Your degree or certification is insignificant; it's your consistent daily practice on increasingly challenging, practical problems that will get you hired.
 
-Much of software engineering is like being a lawyer, since bosses and teammates often ask you tough, critical questions on why you wrote code your way. Be prepared to strongly, persuasively defend your code decisions.
-You must convince yourself that yours is the best solution, with limited time/money, that the company needs.
+You will quickly encounter questions that neither your teachers nor your bosses can answer. Get accustomed to solving problems independently.
 
+Software engineering is like being a lawyer, as bosses and teammates often ask tough, critical questions about your code. Be prepared to strongly and persuasively defend your decisions.
+
+You must convince yourself that your solution is the best given the limited time and resources available and that it meets the company's needs.
+
+Praise in public, criticize in private.
 
 ---
 
@@ -42,9 +57,20 @@ You must convince yourself that yours is the best solution, with limited time/mo
 ## Keep Following Habits
 
 - Keep a work log
-- Keep a list of accomplishments(wins)
+- Record your wins by keeping a list of accomplishments
+  - weekly or bi-weekly
+- Share progress and discuss wins and challenges with manager
+- Ask for specific feedback from manager and colleagues
 
 Offer your manager a summary of your work before the review meeting
+
+---
+
+## Promotion-driven development
+
+With each level, your work is expected to impact more on the business or people.
+
+Engineers aspiring for staff promotion sometimes develop their own in-house solutions for organization-wide issues, instead of using existing third-party options. They identify edge cases where current solutions fall short and then implement a significant, promotion-worthy solution.
 
 ---
 
@@ -153,3 +179,10 @@ Always consider whether there is a tool that can do your task faster and better 
 Use “acked” to reply others instead of spending time on replying with full answer
 
 Don’t redesign a working system
+
+
+---
+
+## References
+
+> The Software Engineer's Guidebook: Navigating senior, tech lead, and staff engineer positions at tech companies and startups

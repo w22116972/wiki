@@ -80,13 +80,13 @@ e.g.
 // unnecessary calls are also made to the calcX() and calcY()
 logger.debug("value of X is " + calcX() + " and Y is " + calcY());
 
-// avoids the string concatenation + no method calls unless logging has been enabled
+// avoids the string concatenation and no method calls unless logging has been enabled
 if (logger.isDebugEnabled()) { 
 	logger.debug("value of X is "+ calcX() + " and Y is " + calcY());
 }
 ```
 
-### **Loggers should always be `private static final`**
+### **Loggers should always be `private static final`**
 
 - Why final? The logger for a class should never need to change
 - Why static? since logger usage should be consistent throughout a codebase + singleton + possibly will be used from static initializers
@@ -114,7 +114,7 @@ When `initStaticData()` is called, the static logger field is still `null` . A h
 - `DEBUG`: general debugging event
   - e.g. *`Opening config file ...`*
 - `TRACE`: fine-grained debug message (more detailed than `DEBUG`)  , typically capturing the flow through the application
-  - e.g. *`openssl: Handshake: start` , `read from buffered SSL brigade, mode 0, 17 bytes` , `map lookup FAILED: map=rewritemap key=keyname` , `cache lookup FAILED, forcing new map lookup`*
+  - e.g. *`openssl: Handshake: start` , `read from buffered SSL brigade, mode 0, 17 bytes` , `map lookup FAILED: map=rewritemap key=keyname` , `cache lookup FAILED, forcing new map lookup`*
 
 
 ### References
