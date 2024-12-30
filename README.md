@@ -5,7 +5,7 @@ Each title is a link to its related documents.
 
 ## [System Design](docs/system-design/README.md)
 
-- [System Design Interview Template](docs/system-design/System%20Design%20Interview%20Template.md)
+- [System Design Interview Template](docs/system-design/Interview%20Template.md)
 - [Back-of-the-Envelope Estimation](docs/system-design/Back-of-the-Envelope%20Estimation.md)
 
 ## [Case Study](docs/case%20study/README.md)
