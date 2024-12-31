@@ -1,6 +1,6 @@
 # Handle duplicate serverless calls
 
-For async invocation,  two cases
+For async invocation, two cases
 
 - same request ID with error or timeout → so it retries
     - sol: configure error handling function

@@ -1,74 +1,105 @@
 # Interview Template
 
-## 1. Understand problem and design scope
+## 1. Understand the Problem and Design Scope
 
-### 1-1. Functional Requirement (What system will do)
+### 1.1 Functional Requirements (What the System Will Do)
 
-Ask
-- Who are the users?
-  - users? other services?
-- How will the system be used?
-  - website? mobile app? API?
-- What are the main features?
+**Key Questions:**
+- **Who are the users?**
+  - End users? Other services?
+- **How will the system be used?**
+  - Through a website, mobile app, or API?
+- **What are the main features?**
 
-### 1-2. Non-Functional Requirement (How system will do)
+### 1.2 Non-Functional Requirements (How the System Will Operate)
 
-Ask
-- Back-of-the-envelope estimation
-  - Users, QPS
-  - Storage/Memory size and cost
+**Key Questions:**
+- **Back-of-the-Envelope Estimations:**
+  - Number of users, QPS (Queries Per Second)
+  - Storage/memory size and cost
   - Network bandwidth usage
-- Scalability (QPS)
-- Availability (SLA)
-  - 99.99%?
-  - Fault tolerant
-  - No single point of failure
-- Consistency
-  - Strong consistency? Eventual consistency? Read your own write consistency? 
-- Latency
+- **Scalability:**
+  - Can the system handle the expected QPS?
+- **Availability:**
+  - Target SLA (e.g., 99.99%)
+  - Fault tolerance
+  - Avoiding single points of failure
+- **Consistency:**
+  - Strong consistency? Eventual consistency? Read-your-own-write consistency?
+- **Latency:**
+  - What is the acceptable latency?
+- **Data Size and Growth:**
+  - What is the current size of the data?
+  - At what rate is the data expected to grow over time?
+- **Data Consumption:**
+  - How will the data be consumed by other subsystems or end users?
+- **Read vs. Write Load:**
+  - Is the workload read-heavy or write-heavy?
 
-### 1-3. List design goals based on requirements
+### 1.3 Privacy and Regulatory Requirements
 
-## 2. High Level Design
+- What privacy and regulatory requirements apply for storing or transmitting user data?
 
-- API Design
-- Define data models
-  - Database models
-  - Message data models
-- Define services (components)
+### 1.4 Design Goals
 
-### Draw diagrams
-
-- UML for services
-- ERD for database models
-
-## 3. Deep Dive into Components (Detailed Design)
-
-### Discuss trade-offs
-- Different components have different pros and cons
-- Different choices have different costs
-- Point out weaknesses in our design to our interviewer and explain why we haven’t tackled them yet
-
-### Pick components that you feel are important in designing the system.
-- requests and response for critical paths
-- schema, data models
-- breakdown of logic and functionality of a single component
-
-### ### Identify and solve potential scaling problems and bottlenecks
-
-- load balancing
-- caching
-- sharding
-- horizontal scaling
-
-
+**List design goals based on the functional and non-functional requirements.**
 
 ---
 
-What’s the size of the data right now?
-At what rate is the data expected to grow over time?
-How will the data be consumed by other subsystems or end users?
-Is the data read-heavy or write-heavy?
-Do we need strict consistency of data, or will eventual consistency work?
-What’s the durability target of the data?
-What privacy and regulatory requirements do we require for storing or transmitting user data?
+## 2. High-Level Design
+
+### Key Design Elements:
+- **API Design**
+- **Data Models:**
+  - Database models
+    - Follow up: state which column should be [indexed](../domain/database/Index.md)
+  - Message data models
+- **Service Definitions:**
+  - Outline the components of the system
+
+### Visualize with Diagrams:
+- **UML Diagrams:** For services and their interactions
+- **ERD (Entity-Relationship Diagram):** For database schema
+
+---
+
+## 3. Deep Dive into Components (Detailed Design)
+
+### 3.1 Discuss Trade-Offs
+
+- Highlight the **pros and cons** of different components.
+- Evaluate **costs** of various choices.
+- Identify weaknesses in the design and explain **why** they haven’t been addressed yet.
+
+### 3.2 Focus on Key Components
+
+**Critical Aspects to Address:**
+- Request and response flow for critical paths
+- Schema and data models
+- Detailed breakdown of logic and functionality for individual components
+
+### 3.3 Solve Potential Scaling Problems and Bottlenecks
+
+**Key Considerations:**
+- Load balancing
+- Caching
+- Sharding
+- Horizontal scaling
+
+---
+
+## 4. Additional Technical Considerations
+
+### 4.1 Data Durability
+
+- What’s the target durability for the data?
+
+### 4.2 Consistency Requirements
+
+- Do we need strict consistency, or will eventual consistency suffice?
+
+### 4.3 Latency and Performance
+
+- What are the acceptable latency and performance thresholds for key operations?
+
+---
