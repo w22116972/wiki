@@ -1,2 +1,0 @@
-# Docker Best Practices
-
