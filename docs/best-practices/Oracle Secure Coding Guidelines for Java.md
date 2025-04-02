@@ -1,5 +1,38 @@
 # Oracle Secure Coding Guidelines for Java
 
+## Table of Contents
+- [Design `class`](#design-class)
+  - [`class` is either `final` or `abstract`](#class-is-either-final-or-abstract)
+  - [`class`, `interface` should be `package-private`](#class-interface-should-be-package-private-unless-it-is-part-of-a-published-api)
+  - [Only use non-overridable methods in constructor](#only-use-non-overridable-methods-in-constructor-eg-final-static-or-private-methods)
+  - [Fields of objects should be private](#fields-of-objects-should-be-private)
+  - [If `class` or object is mutable](#if-class-or-objecteg-custom-list-is-mutable)
+  - [Use setter for input validation](#use-setter-for-input-validation)
+  - [If `class` is sensitive](#if-class-is-sensitive)
+- [Input Validation](#input-validation)
+  - [Use the created/returned object instead of original input](#use-the-createdreturned-object-instead-of-original-input-for-validation)
+  - [Validate output from untrusted upcall](#validate-output-from-untrusted-upcall-invoking-a-method-of-higher-level-code)
+  - [Parse and validate should be separate](#parse-and-validate-should-be-separate)
+  - [Not use dynamic SQL query](#not-use-dynamic-sql-query)
+  - [Don't rely on API for safety checking](#dont-rely-on-api-for-safety-checking)
+  - [Use sanitized data for validation](#use-sanitized-data-for-validation-not-the-original-input)
+- [Release resources](#release-resources)
+  - [Use Lambda to implement Execute Around Method pattern](#use-lambda-to-implement-execute-around-method-pattern)
+  - [Use try-with-resources](#use-try-with-resources)
+  - [Use `finally` block](#if-no-lambda-and-no-try-with-resources-use-finally-block)
+- [When catching exceptions](#when-catching-exceptions)
+  - [Catch exceptions that might expose sensitive information](#catch-exceptions-that-might-expose-sensitive-information-and-rethrow-a-safer-more-general-exception)
+- [Handling integer overflow](#handling-integer-overflow)
+  - [Reorder the expression](#reorder-the-expression)
+  - [Use `java.math.BigInteger`](#use-javamathbiginteger)
+  - [Use `Math.???Exact(long value)`](#use-mathexactlong-value)
+  - [Use `Objects.checkIndex` or `Objects.checkFromToIndex`](#use-objectscheckindex-or-objectscheckfromtoindex-to-check-array-index)
+- [Handling float-point numbers](#handling-float-point-numbers)
+- [Handling mutable data](#handling-mutable-data)
+  - [Create copies of mutable data](#create-copies-of-mutable-data)
+  - [`public static final` declaration](#public-static-final-should-be-declared-on-object-that-is-really-unmodifiable)
+- [References](#references)
+
 ## Design `class`
 
 #### `class` is either `final` or `abstract`
@@ -116,6 +149,113 @@ public class JsonParser {
 }
 ```
 
+### Parse and validate should be separate
+
+#### e.g. To expect date format `YYYY-MM-DD`
+
+```java
+// Bad
+// Fail on "2027-10/27"
+public static boolean isValidDate(String input) {
+  Pattern pattern = Pattern.compile("^(\\d{4})[-\\/](\\d{2})[-\\/](\\d{2})$");
+  Matcher matcher = pattern.matcher(input);
+  if (matcher.matches()) {
+    try {
+      int year = Integer.parseInt(matcher.group(1));
+      int month = Integer.parseInt(matcher.group(2));
+      int day = Integer.parseInt(matcher.group(3));
+      
+      // Will have too many logics
+      if (year >= 1900 && year <= 2100 && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
+        return true;
+      }
+    } catch (NumberFormatException e) {
+      // 處理解析錯誤
+      return false;
+    }
+  }
+  return false;
+}
+```
+
+```java
+// Good
+public static LocalDate parseDate(String input) {
+    try {
+        // validate `yyyy-mm-dd`
+        return LocalDate.parse(input, DateTimeFormatter.ISO_LOCAL_DATE);
+    } catch (DateTimeParseException e1) {
+        try {
+            return LocalDate.parse(input, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+        } catch (DateTimeParseException e2) {
+            return null;
+        }
+    }
+}
+public static boolean isValidDate(LocalDate date) {
+  if (date == null) {
+    return false;
+  }
+  int year = date.getYear();
+  int month = date.getMonthValue();
+  int day = date.getDayOfMonth();
+  
+  return year >= 1900 && year <= 2100 && month >= 1 && month <= 12 && day >= 1 && day <= date.lengthOfMonth();
+}
+```
+
+### Not use dynamic SQL query
+
+```java
+// Good
+String sql = "SELECT * FROM User WHERE userId = ?";
+PreparedStatement stmt = con.prepareStatement(sql);
+stmt.setString(1, userId);
+ResultSet rs = prepStmt.executeQuery();
+```
+
+### Don't rely on API for safety checking
+
+- `new URL(url)` only does format checking, not safety checking
+- `new File(path)` not checking if it contains `../`
+  - On some platforms or legacy systems (especially in native code), `\0` may truncate the path (e.g., `"foo\0.txt"` becomes `"foo"`
+
+```java
+// Good
+if (userProvidedFileName.contains("\0") || userProvidedFileName.contains("../")) {
+    throw new SecurityException("Invalid filename");
+}
+Path basePath = Paths.get("user_files").toAbsolutePath().normalize();
+Path filePath = basePath.resolve(userProvidedFileName).normalize();
+
+// Check that the resolved path is still within the base directory
+if (!filePath.startsWith(basePath)) {
+    throw new SecurityException("Access denied");
+}
+
+if (Files.exists(filePath)) {
+    // Read and return the file content...
+}
+```
+
+### use sanitized data for validation not the original input
+
+```java
+public void handleFileUpload(String fileName, InputStream content) {
+    String sanitizedName = FileNameUtils.sanitize(fileName);
+    
+    // Bad
+    if (!isRestrictedFileName(fileName)) {
+        saveFile(sanitizedName, content);
+    }
+    
+    // Good
+    if (!isRestrictedFileName(sanitizedName)) { 值
+        saveFile(sanitizedName, content);
+    }
+}
+```
+
 ---
 
 ## Release resources
@@ -181,7 +321,7 @@ try {
 
 ---
 
-### Avoid integer overflow in 3 ways
+## Handling integer overflow
 
 #### Reorder the expression
 
@@ -273,76 +413,7 @@ public class StringListProcessor {
 }
 ```
 
----
-
-## Input Validation
-
-### Parse and validate should be separate
-
-#### e.g. To expect date format `YYYY-MM-DD`
-
-```java
-// Bad
-// Fail on "2027-10/27"
-public static boolean isValidDate(String input) {
-  Pattern pattern = Pattern.compile("^(\\d{4})[-\\/](\\d{2})[-\\/](\\d{2})$");
-  Matcher matcher = pattern.matcher(input);
-  if (matcher.matches()) {
-    try {
-      int year = Integer.parseInt(matcher.group(1));
-      int month = Integer.parseInt(matcher.group(2));
-      int day = Integer.parseInt(matcher.group(3));
-      
-      // Will have too many logics
-      if (year >= 1900 && year <= 2100 && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
-        return true;
-      }
-    } catch (NumberFormatException e) {
-      // 處理解析錯誤
-      return false;
-    }
-  }
-  return false;
-}
-```
-
-```java
-// Good
-public static LocalDate parseDate(String input) {
-    try {
-        // validate `yyyy-mm-dd`
-        return LocalDate.parse(input, DateTimeFormatter.ISO_LOCAL_DATE);
-    } catch (DateTimeParseException e1) {
-        try {
-            return LocalDate.parse(input, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-        } catch (DateTimeParseException e2) {
-            return null;
-        }
-    }
-}
-public static boolean isValidDate(LocalDate date) {
-  if (date == null) {
-    return false;
-  }
-  int year = date.getYear();
-  int month = date.getMonthValue();
-  int day = date.getDayOfMonth();
-  
-  return year >= 1900 && year <= 2100 && month >= 1 && month <= 12 && day >= 1 && day <= date.lengthOfMonth();
-}
-```
-
-### Not use dynamic SQL query
-
-```java
-// Good
-String sql = "SELECT * FROM User WHERE userId = ?";
-PreparedStatement stmt = con.prepareStatement(sql);
-stmt.setString(1, userId);
-ResultSet rs = prepStmt.executeQuery();
-```
-
-### Handling floating-point numbers
+## Handling float-point numbers
 
 - When converting `NaN` to an integer, it becomes `0`
   - `0.0 / 0.0` and `Infinity - Infinity` are `NaN` in Java
@@ -361,50 +432,9 @@ if (Double.isInfinite(untrusted_double_value)){
 // normal processing starts here
 ```
 
-### Don't rely on API for safety checking
-
-- `new URL(url)` only does format checking, not safety checking
-- `new File(path)` not checking if it contains `../`
-  - On some platforms or legacy systems (especially in native code), `\0` may truncate the path (e.g., `"foo\0.txt"` becomes `"foo"`
-
-```java
-// Good
-if (userProvidedFileName.contains("\0") || userProvidedFileName.contains("../")) {
-    throw new SecurityException("Invalid filename");
-}
-Path basePath = Paths.get("user_files").toAbsolutePath().normalize();
-Path filePath = basePath.resolve(userProvidedFileName).normalize();
-
-// Check that the resolved path is still within the base directory
-if (!filePath.startsWith(basePath)) {
-    throw new SecurityException("Access denied");
-}
-
-if (Files.exists(filePath)) {
-    // Read and return the file content...
-}
-```
-
-### use sanitized data for validation not the original input
-
-```java
-public void handleFileUpload(String fileName, InputStream content) {
-    String sanitizedName = FileNameUtils.sanitize(fileName);
-    
-    // Bad
-    if (!isRestrictedFileName(fileName)) {
-        saveFile(sanitizedName, content);
-    }
-    
-    // Good
-    if (!isRestrictedFileName(sanitizedName)) { 值
-        saveFile(sanitizedName, content);
-    }
-}
-```
-
-
 ---
+
+## Handling mutable data
 
 ### Create copies of mutable data
 
@@ -494,3 +524,4 @@ public class MutableValue {
 # References
 
 > https://www.oracle.com/java/technologies/javase/seccodeguide.html
+`
