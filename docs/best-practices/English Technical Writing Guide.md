@@ -1,5 +1,23 @@
 # Google Technical Writing Guide
 
+## Table of Contents
+- [Choice of words](#choice-of-words)
+  - [Choose strong verbs](#choose-strong-verbs)
+  - [Use `following` to introduce list or table](#use-following-to-introduce-list-or-table)
+  - [Use imperative verbs first in numbered list](#use-imperative-verbs-first-in-numbered-list)
+  - [Prefer active voice to passive voice](#prefer-active-voice-to-passive-voice)
+- [Rewriting sentences](#rewriting-sentences)
+  - [Convert some long sentences to lists](#convert-some-long-sentences-to-lists)
+  - [Minimize certain adjectives and adverbs](#minimize-certain-adjectives-and-adverbs)
+  - [Reduce there is/are](#reduce-there-isare)
+  - [Reduce extraneous words](#reduce-extraneous-words)
+  - [Place conditions before instructions, not after](#place-conditions-before-instructions-not-after)
+- [Structure](#structure)
+  - [Effective opening sentence in any paragraph](#effective-opening-sentence-in-any-paragraph)
+  - [Focus each paragraph on a single topic + Focus each sentence on a single idea](#focus-each-paragraph-on-a-single-topic--focus-each-sentence-on-a-single-idea)
+  - [Note: which vs that in subordinate clauses](#note-which-vs-that-in-subordinate-clauses)
+- [References](#references)
+
 ## Choice of words
 
 ### Choose strong verbs
@@ -103,3 +121,4 @@ If you read a sentence aloud and hear a pause just before the subordinate clause
 
 - https://developers.google.com/tech-writing
 - https://developers.google.com/style
+
