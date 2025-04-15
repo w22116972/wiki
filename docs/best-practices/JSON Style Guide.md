@@ -1,6 +1,5 @@
 # JSON Style Guides
 
-
 ### Use double quotes
 
 ### Array types should have plural property names. All other property names should be singular.
