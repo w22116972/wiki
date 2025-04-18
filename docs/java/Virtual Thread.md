@@ -6,7 +6,6 @@
 
 A thread that not tied to OS thread, scheduled by the Java runtime
 
-
 A thread is the smallest unit of processing that can be scheduled
 1. Platform thread: a thin wrapper around an OS thread
     - the number of available platform threads is limited to the number of OS threads

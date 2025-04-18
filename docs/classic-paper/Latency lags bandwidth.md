@@ -2,7 +2,7 @@
 
 ## Abstract
 
-Bandwidth improves too much more quickly than latency. Even latency is limited by the speed of light, we can improve latency by cache, replication, and prediction.
+Bandwidth improves too much more quickly than latency. Even latency is limited by the speed of light, we can **improve latency by cache, replication, and prediction**.
 
 ## Introduction
 
