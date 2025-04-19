@@ -36,4 +36,7 @@ Refs to the hash value of commit
 
 ## References
 
-> https://www.conventionalcommits.org/
+> https://www.conventionalcommits.org/zh-hant/v1.0.0/
+> https://developers.google.com/blockly/guides/contribute/get-started/commits?hl=zh-tw
+> https://git.kernel.org/pub/scm/git/git.git/tree/Documentation/SubmittingPatches?id=HEAD#n133
+
