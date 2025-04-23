@@ -6,6 +6,7 @@
 
 .obsidian/
 .vscode/
+.DS_Store
 
 # User-specific stuff
 .idea/**/workspace.xml
