@@ -2,13 +2,6 @@
 
 Database has ACID including Isolation. It decides how and when changes made by one transaction
 
-| Isolation Level        | Dirty Read | Non-repeatable Read | Phantom Read |
-|------------------------|------------|----------------------|---------------|
-| READ_UNCOMMITTED       | Yes        | Yes                  | Yes           |
-| READ_COMMITTED         | No         | Yes                  | Yes           |
-| REPEATABLE_READ        | No         | No                   | Yes           |
-| SERIALIZABLE           | No         | No                   | No            |
-
 #### Concurrency Problems Table
 
 | Concurrency Problem | Description                                     | Caused By                     | Example Scenario                                           | Severity | Typical Fix                         |

@@ -3,6 +3,8 @@
 These are selected documents in the topics of system design, best practices, domain knowledge, and case studies.
 Each title is a link to its related documents.
 
+## [Performance Engineering](docs/performance-engineering/README.md)
+
 ## [System Design](docs/system-design/README.md)
 
 - [System Design Interview Template](docs/system-design/Interview%20Template.md)
@@ -18,3 +20,7 @@ Each title is a link to its related documents.
 
 - [Resume Guide](docs/best-practices/Resume%20Guide.md)
 - [Conventional Commit Guidelines](docs/best-practices/Conventional%20Commit%20Guidelines.md)
+
+## [Java, Spring](docs/java/README.md)
+
+## [Database](docs/database/README.md)
