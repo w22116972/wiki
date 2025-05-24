@@ -1,5 +1,7 @@
 # Latency lags bandwidth
 
+> David A. Patterson. 2004. Latency lags bandwith. Commun. ACM 47, 10 (October 2004), 71–75. https://doi.org/10.1145/1022594.1022596
+
 ## Abstract
 
 Bandwidth improves too much more quickly than latency. Even latency is limited by the speed of light, we can **improve latency by cache, replication, and prediction**.
@@ -68,9 +70,6 @@ Example: DRAM blocks and interfaces should be designed like SCSI(Small Computer 
 
 Because latency to memory is approaching the time to execute a thousand instructions
 
-## References
-
-> David A. Patterson. 2004. Latency lags bandwith. Commun. ACM 47, 10 (October 2004), 71–75. https://doi.org/10.1145/1022594.1022596
 
 ## Keywords
 

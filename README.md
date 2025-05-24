@@ -3,18 +3,16 @@
 These are selected documents in the topics of system design, best practices, domain knowledge, and case studies.
 Each title is a link to its related documents.
 
-## [System Design](docs/system-design/README.md)
+#### Performance Engineering
 
-- [System Design Interview Template](docs/system-design/Interview%20Template.md)
-- [Back-of-the-Envelope Estimation](docs/system-design/Back-of-the-Envelope%20Estimation.md)
+[P50, P95, P99 latency guide](https://github.com/w22116972/wiki/blob/main/docs/performance-engineering/Percentile-Based%20Performance%20Optimization.md)
+- P50 is median latency
+- P95 is under bursty load latency
+- P99 is tail latency
 
-## [Case Study](docs/case%20study/README.md)
 
-[Latency lags bandwidth](docs/case%20study/Latency%20lags%20bandwidth.md)
+#### Classic Papers
 
-[Why discord is switching from Go to Rust](docs/case%20study/why-discord-is-switching-from-go-to-rust.md)
-
-## [Best Practices](docs/best-practices/README.md)
-
-- [Resume Guide](docs/best-practices/Resume%20Guide.md)
-- [Conventional Commit Guidelines](docs/best-practices/Conventional%20Commit%20Guidelines.md)
+[Latency lags bandwidth by David A. Patterson](https://github.com/w22116972/wiki/blob/main/docs/classic-paper/Latency%20lags%20bandwidth.md)
+- Bandwidth is way faster then latency, latency is limited by physical constraints(long distance, speed of light ... etc)
+- 3 keys to improving latency: reduce distance(cache, replica), parallelism(multi-threading), prediction(preload, prefetch)
