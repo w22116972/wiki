@@ -30,7 +30,7 @@ class InvoicePrinter {
 
 ---
 
-## Open/Closed Principle''
+## Open/Closed Principle
 
 > You should be able to add new functionality by adding code, not by modifying existing classes
 
@@ -67,13 +67,80 @@ You can add new notification types without modifying NotificationService.
 
 ---
 
-## iskov Substitution Principle (LSP)
+## Liskov Substitution Principle (LSP)
 
 > A subclass should be usable anywhere its superclass is expected, without causing bugs or incorrect behavior.
 
 Examle: `Rectangle` should not inherit `Square`, they should both inherit `Shape`. Because their area are different given same width and height.
 ```java
+// Superclass: A generic document
+class Document {
+    protected String data;
+    protected boolean isSaved;
 
+    public Document(String initialData) {
+        this.data = initialData;
+        this.isSaved = false; // Initially not saved
+        System.out.println("Document created with: \"" + initialData + "\"");
+    }
+
+    // The contract: allows updating data and then saving it.
+    // A client expects that after calling save(), isSaved will be true.
+    public void updateData(String newData) {
+        this.data = newData;
+        this.isSaved = false; // Data changed, needs saving again
+        System.out.println("Document data updated to: \"" + this.data + "\"");
+    }
+
+    public void save() {
+        // Simulate saving the document
+        this.isSaved = true;
+        System.out.println("Document with data \"" + this.data + "\" has been saved.");
+    }
+
+    public boolean isSaved() {
+        return isSaved;
+    }
+
+    public String getData() {
+        return data;
+    }
+}
+
+// Subclass: A document that is read-only after initial creation.
+// It IS-A Document, but its behavior for 'save' or 'updateData' might be problematic.
+class ReadOnlyDocument extends Document {
+    public ReadOnlyDocument(String initialData) {
+        super(initialData);
+        // Mark as "saved" immediately as it's read-only from this point
+        super.save(); // Initial "save" to establish read-only state
+        System.out.println("ReadOnlyDocument established. No further modifications allowed.");
+    }
+
+    @Override
+    public void updateData(String newData) {
+        // Violates LSP: Cannot update data in a read-only document.
+        // Superclass allows updateData, subclass restricts it.
+        System.err.println("Cannot update data on a ReadOnlyDocument. Operation ignored.");
+        // Silently ignoring is one way to violate, throwing an exception is another.
+        // The key is that the superclass contract (data can be updated) is broken.
+    }
+
+    @Override
+    public void save() {
+        // Violates LSP: A ReadOnlyDocument might not need a 'save' operation
+        // or its 'save' might mean something different or do nothing.
+        // If the superclass 'save' implies a change can be persisted,
+        // this 'save' changes that contract.
+        if (!this.isSaved) { // Should ideally always be true after constructor
+             System.out.println("ReadOnlyDocument: Re-affirming it's already in its final saved state.");
+             this.isSaved = true; // Ensure it stays saved
+        } else {
+            System.out.println("ReadOnlyDocument is already in its final saved state. 'Save' operation has no effect.");
+        }
+        // It doesn't allow the typical "update then save" cycle.
+    }
+}
 ```
 
 ---

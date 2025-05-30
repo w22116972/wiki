@@ -13,6 +13,7 @@
 欄位不可再分割
 
 將每筆紀錄拆成一列，只包含單一課程與對應的老師
+學生資訊組成學生資訊表，有年齡、性別、學號等資訊組成。這些欄位都不可再分
 
 Splits multi-valued fields into separate rows
 
@@ -24,6 +25,7 @@ Splits multi-valued fields into separate rows
 
 ## 2NF
 
+滿足第一正規化,表中的欄位必須完全依賴於全部主鍵而非部分主鍵
 所有資料都要和該資料表的鍵（主鍵與候選鍵）有完全相依關係
 
 StudentName 只與 StudentID 有關，不需重複出現在每筆選課紀錄中
@@ -45,6 +47,7 @@ Split StudentName into a separate table to remove partial dependency
 
 ## 3NF
 
+滿足第二正規化，非主鍵外的所有欄位必須互不依賴
 消除傳遞相依（A → B → C）
 
 Instructor 是依據 Course 決定的，而不是 StudentID
