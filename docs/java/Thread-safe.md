@@ -2,8 +2,6 @@
 
 To ensure thread safe, you need to have **atomicity**, **visibility**, **ordering**
 
-
-
 ## Atomicity
 
 > An operation is atomic if **other threads can only observe it as either not yet started or fully completed**, never in an intermediate state. It's an indivisible unit from the perspective of other threads.

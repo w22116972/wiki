@@ -34,7 +34,7 @@
 ## 5. When to Use Which
 
 - Use **threads** when:
-  - You need concurrency within the same memory space.
+  - You need concurrency within the same memory space.`
   - Tasks share state and you can manage synchronization.
 
 - Use **processes** when:

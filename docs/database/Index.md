@@ -1,8 +1,9 @@
 # Index
 
-## Definition
+> lookup table (data structure) that enhances the speed of data retrieval operations in a database
 
-Data structure that enables fast lookup and modification of data entries by search key
+- contains a copy of specific columns from the table, along with pointers to the full records
+    - allow the database to quickly jump to the relevant data when a query uses the indexed column
 
 ## Principle
 
