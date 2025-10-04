@@ -1,0 +1,9 @@
+# Performance Engineering
+
+
+| 層級             | 改善關鍵路徑 — 目標與挑戰                                                                                      | 改善長尾延遲 — 目標與挑戰                                                                                  |
+|:----------------|:-----------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------|
+| **網路端 (Network)** | **目標**：降低請求傳輸耗時、減少 RTT 次數，優化 connection reuse / protocol overhead<br>**挑戰**：網路環境不穩、跨區 latency 無法完全消除，TLS handshake / DNS latency 難優化過深<br>**取捨**：Latency 改善 vs TLS 安全性 / DNS TTL 過短導致不穩定 | **目標**：減少偶發性極端網路延遲，降低 TLS 握手、DNS query、LB 掉點帶來的 outlier latency<br>**挑戰**：極端狀況重現困難、異常來源追查複雜<br>**取捨**：觀測與追蹤開銷 vs 延遲改善成效、動態調整 vs 穩定性 |
+| **OS / Infrastructure 層** | **目標**：減少 context switch、disk IO latency、thread scheduling 延遲，確保熱路徑資源充足<br>**挑戰**：多租環境資源競爭、測試環境與正式環境差異、tuning 成本高<br>**取捨**：資源利用率提升 vs 穩定性、過度 tuning 可能造成系統行為不穩定 | **目標**：排除偶發 IO spike、系統 queue 爆滿、backpressure 失控<br>**挑戰**：突發 traffic 導致資源排擠、預測困難、需 eBPF / perf tracing<br>**取捨**：Backpressure 限制 vs throughput 損耗、資源超配 vs 成本 |
+| **應用程式層 (Application)** | **目標**：縮短資料查詢/運算/序列化時間，減少 GC pause，優化熱路徑 cache 命中率<br>**挑戰**：錯誤優化非熱點、GC tuning 成效波動、併發 tuning 易誤踩 bottleneck<br>**取捨**：併發數提升 vs 資源耗用 / context switch 開銷 | **目標**：減少少量異常慢請求、Queue blocking、偶發 GC spike<br>**挑戰**：異常發生難重現、單次請求延遲原因複雜、Trace 斷點排查繁瑣<br>**取捨**：非同步 / queue buffer 增大 vs 即時性降低、Retry 策略 vs downstream 壓力 |
+| **架構層 (Architecture)** | **目標**：設計隔離熱路徑，動態擴充避免熱點瓶頸，前置 cache / 分散流量<br>**挑戰**：複雜架構影響維運、資料一致性問題、read-write split / cache invalidation 難控<br>**取捨**：資料一致性 vs 效能、複雜度提升 vs 維護性下降 | **目標**：減少系統雪崩、fallback / degrade 機制確保服務不阻塞<br>**挑戰**：限流/降級策略取捨困難、影響用戶體驗、極端流量難預測<br>**取捨**：降級機制觸發 vs 用戶體驗下降、限流策略保守 vs throughput 浪費 |
